@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AndTestStyle" parent="android:Theme">
+        <item name="android:button">@style/AndTestButton</item>
+    </style>
+    <style name="AndTestButton" parent="android:style/Widget.Button">
+        <item name="android:layout_height">65dp</item>
+        <item name="android:layout_width">65dp</item>
+    </style>
+    <style name="AndTestImageButton" parent="android:style/Widget.ImageButton">
+        <item name="android:layout_height">65dp</item>
+        <item name="android:layout_width">65dp</item>
+    </style>
+</resources>

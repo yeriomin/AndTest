@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+
+    <ScrollView
+        android:id="@+id/question_frame"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_above="@+id/navigation" />
+
+    <RelativeLayout
+        android:id="@+id/navigation"
+        android:layout_alignParentBottom="true"
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <ImageButton
+            style="@style/AndTestImageButton"
+            android:id="@+id/button_previous"
+            android:src="@drawable/ic_previous" />
+
+        <ImageButton
+            style="@style/AndTestImageButton"
+            android:layout_toRightOf="@id/button_previous"
+            android:id="@+id/button_result"
+            android:src="@drawable/ic_list" />
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical" >
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textSize="25sp"
+                android:id="@+id/progress" />
+            <com.github.yeriomin.andtest.view.TimerView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_horizontal"
+                android:textSize="25sp"
+                android:id="@+id/time" />
+        </LinearLayout>
+
+        <ImageButton
+            style="@style/AndTestImageButton"
+            android:id="@+id/button_hint"
+            android:layout_toLeftOf="@+id/button_next"
+            android:src="@drawable/ic_hint" />
+
+        <ImageButton
+            style="@style/AndTestImageButton"
+            android:id="@+id/button_next"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/ic_next" />
+
+    </RelativeLayout>
+</RelativeLayout>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="pref_show_answers_summary">Показывать ответ и объяснение после теста или сразу после ответа на вопрос</string>
+    <string name="pref_show_answers">Ответы в конце</string>
+    <string name="menu_settings">Настройки</string>
+    <string name="menu_refresh">Обновить список</string>
+    <string name="button_finish">Завершить</string>
+    <string name="button_start">Начать</string>
+    <string name="result_time_elapsed">Прошло времени: </string>
+    <string name="result_time_remaining">Осталось времени: </string>
+    <string name="result_count_answered">Дано ответов: </string>
+    <string name="result_count_correct">Верно: </string>
+    <string name="result_count_format" formatted="false">%s из %s (%s%%)</string>
+    <string name="text_progress" formatted="false">%s из %s</string>
+    <string name="text_time" formatted="false">%s:%s</string>
+    <string name="test_list_empty">Тестов не найдено</string>
+    <string name="test_history_empty">Это тест не был пройден ни разу</string>
+    <string name="toast_invalid_test">Тестовый файл неверно составлен</string>
+    <string name="question_table_number" formatted="false">№%s</string>
+    <string name="question_table_status_answered">есть ответ</string>
+    <string name="question_table_status_skipped">пропущен</string>
+    <string name="question_table_status_correct">верно</string>
+    <string name="question_table_status_incorrect">неверно</string>
+    <string name="summary_question_count" formatted="false">Количество вопросов: %s</string>
+    <string name="summary_time_limit" formatted="false">Ограничение по времени: %s</string>
+</resources>

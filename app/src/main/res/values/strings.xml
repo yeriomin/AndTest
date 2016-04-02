@@ -1,0 +1,26 @@
+<resources>
+    <string name="app_name" translatable="false">AndTest</string>
+    <string name="pref_show_answers_summary">Show answers and explanation after the test ends or after each question</string>
+    <string name="pref_show_answers">Answers in the end</string>
+    <string name="menu_settings">Settings</string>
+    <string name="menu_refresh">Refresh list</string>
+    <string name="button_finish">Finish</string>
+    <string name="button_start">Start</string>
+    <string name="result_time_elapsed">Time elapsed: </string>
+    <string name="result_time_remaining">Time elapsed: </string>
+    <string name="result_count_answered">Answers given:</string>
+    <string name="result_count_correct">Correct: </string>
+    <string name="result_count_format" formatted="false">%s/%s (%s%%)</string>
+    <string name="text_progress" formatted="false">%s/%s</string>
+    <string name="text_time" formatted="false">%s:%s</string>
+    <string name="test_list_empty">No tests found</string>
+    <string name="test_history_empty">This test has not been taken yet</string>
+    <string name="toast_invalid_test">Test file appears to be invalid</string>
+    <string name="question_table_number" formatted="false">#%s</string>
+    <string name="question_table_status_answered">answered</string>
+    <string name="question_table_status_skipped">skipped</string>
+    <string name="question_table_status_correct">correct</string>
+    <string name="question_table_status_incorrect">incorrect</string>
+    <string name="summary_question_count" formatted="false">Number of questions: %s</string>
+    <string name="summary_time_limit" formatted="false">Time limit: %s</string>
+</resources>

@@ -1,0 +1,27 @@
+apply plugin: 'com.android.application'
+android {
+    compileSdkVersion 8
+    buildToolsVersion "23.0.3"
+
+    defaultConfig {
+        applicationId "com.github.yeriomin.andtest"
+        minSdkVersion 8
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+    }
+
+    lintOptions {
+        disable 'GoogleAppIndexingWarning', 'GoogleAppIndexingApiWarning'
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+        }
+    }
+
+}
+
+dependencies {
+}
