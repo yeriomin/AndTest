@@ -1,8 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <string name="pref_show_answers_summary">Показывать ответ и объяснение после теста или сразу после ответа на вопрос</string>
-    <string name="pref_show_answers">Ответы в конце</string>
-    <string name="menu_settings">Настройки</string>
     <string name="menu_refresh">Обновить список</string>
     <string name="button_finish">Завершить</string>
     <string name="button_start">Начать</string>

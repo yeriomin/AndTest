@@ -14,7 +14,6 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name="com.github.yeriomin.andtest.activity.PreferencesActivity"></activity>
         <activity android:name="com.github.yeriomin.andtest.activity.TestSummaryActivity"></activity>
         <activity android:name="com.github.yeriomin.andtest.activity.TestResultActivity"></activity>
         <activity android:name="com.github.yeriomin.andtest.activity.QuestionActivity"></activity>

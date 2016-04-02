@@ -41,9 +41,6 @@ public class TestListActivity extends ListActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.menu_settings:
-                startActivityForResult(new Intent(this, PreferencesActivity.class), 1);
-                break;
             case R.id.menu_refresh:
                 onResume();
                 break;
