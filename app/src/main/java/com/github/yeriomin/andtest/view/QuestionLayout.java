@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.github.yeriomin.andtest.model.Question;
+import com.github.yeriomin.andtest.core.Question;
 
 abstract public class QuestionLayout extends LinearLayout {
 

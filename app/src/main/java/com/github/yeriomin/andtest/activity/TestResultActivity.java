@@ -13,7 +13,7 @@ import android.widget.TextView;
 
 import com.github.yeriomin.andtest.DbHelper;
 import com.github.yeriomin.andtest.R;
-import com.github.yeriomin.andtest.model.Question;
+import com.github.yeriomin.andtest.core.Question;
 import com.github.yeriomin.andtest.model.Test;
 import com.github.yeriomin.andtest.view.TimerView;
 

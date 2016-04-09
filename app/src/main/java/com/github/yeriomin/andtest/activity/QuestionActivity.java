@@ -10,7 +10,7 @@ import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.github.yeriomin.andtest.R;
-import com.github.yeriomin.andtest.model.Question;
+import com.github.yeriomin.andtest.core.Question;
 import com.github.yeriomin.andtest.model.Test;
 import com.github.yeriomin.andtest.view.QuestionLayout;
 import com.github.yeriomin.andtest.view.TimerView;
@@ -56,7 +56,7 @@ public class QuestionActivity extends Activity {
         buttonHint.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                test.getQuestions().get(num).setHinted(true);
+                test.setQuestionHinted(num);
                 layout.drawAnswerAndExplanation();
             }
         });
@@ -85,7 +85,7 @@ public class QuestionActivity extends Activity {
             layout.setQuestion(question, num);
             questionFrame.addView(layout);
 
-            if (test.isFinished() || question.isHinted()) {
+            if (test.isFinished() || test.isQuestionHinted(num)) {
                 layout.drawAnswerAndExplanation();
             }
         }

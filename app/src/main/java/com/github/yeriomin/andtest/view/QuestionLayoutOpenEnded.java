@@ -6,8 +6,8 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 
 import com.github.yeriomin.andtest.R;
-import com.github.yeriomin.andtest.model.Question;
-import com.github.yeriomin.andtest.model.QuestionOpenEnded;
+import com.github.yeriomin.andtest.core.Question;
+import com.github.yeriomin.andtest.core.QuestionOpenEnded;
 
 public class QuestionLayoutOpenEnded extends QuestionLayout {
 
@@ -20,7 +20,7 @@ public class QuestionLayoutOpenEnded extends QuestionLayout {
 
         EditText answerEditText = new EditText(getContext());
         answerEditText.setId(R.id.question_oe_answer);
-        answerEditText.setText(question.getAnswer().toString());
+        answerEditText.setText(((QuestionOpenEnded) question).getAnswer().toString());
         answerEditText.addTextChangedListener(new TextWatcher() {
 
             public void afterTextChanged(Editable s) {
@@ -30,7 +30,7 @@ public class QuestionLayoutOpenEnded extends QuestionLayout {
             }
 
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                question.setAnswer(s);
+                ((QuestionOpenEnded) question).setAnswer(s.toString());
             }
         });
         this.addView(answerEditText);

@@ -67,7 +67,7 @@ public class TestListActivity extends ListActivity {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             try {
-                Test.getInstance().setFile((String) listView.getItemAtPosition(position));
+                Test.getInstance().setFile((String) parent.getItemAtPosition(position));
             } catch (FileNotFoundException e) {
                 System.out.println("Internal error. Test file not found: " + e.getMessage());
             } catch (JSONException e) {

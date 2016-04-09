@@ -5,8 +5,8 @@ import android.graphics.Color;
 import android.view.View;
 import android.widget.CheckBox;
 
-import com.github.yeriomin.andtest.model.Question;
-import com.github.yeriomin.andtest.model.QuestionMultipleChoice;
+import com.github.yeriomin.andtest.core.Question;
+import com.github.yeriomin.andtest.core.QuestionMultipleChoice;
 
 import java.util.HashSet;
 
@@ -25,7 +25,7 @@ public class QuestionLayoutMultipleChoice extends QuestionLayout {
             answerCheckBox.setId(id);
             answerCheckBox.setText(answer);
             answerCheckBox.setOnClickListener(new CheckboxListener(question));
-            if (((HashSet<Integer>) question.getAnswer()).contains(id)) {
+            if (((QuestionMultipleChoice) question).getAnswer().contains(id)) {
                 answerCheckBox.setChecked(true);
             }
             this.addView(answerCheckBox);
@@ -56,7 +56,7 @@ public class QuestionLayoutMultipleChoice extends QuestionLayout {
 
         @Override
         public void onClick(View v) {
-            HashSet<Integer> givenAnswer = (HashSet<Integer>) question.getAnswer();
+            HashSet<Integer> givenAnswer = ((QuestionMultipleChoice) question).getAnswer();
             CheckBox checkbox = (CheckBox) v;
             Integer id = checkbox.getId();
             if (checkbox.isChecked()) {

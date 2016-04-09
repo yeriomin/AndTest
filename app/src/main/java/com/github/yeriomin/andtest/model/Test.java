@@ -2,7 +2,6 @@ package com.github.yeriomin.andtest.model;
 
 import android.os.Environment;
 
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
@@ -14,27 +13,22 @@ import java.io.IOException;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
-import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.Scanner;
 
-public class Test {
+public class Test extends com.github.yeriomin.andtest.core.Test {
 
     private static final String DIRECTORY_TESTS = "AndTest";
     private static final String EXT = ".json";
-    private static final String JSON_PROPERTY_QUESTIONS = "questions";
-    private static final String JSON_PROPERTY_TIMELIMIT = "timeLimit";
-    private static final String JSON_PROPERTY_DESCRIPTION = "description";
 
     private static Test instance;
 
     private File file;
 
-    private String description;
-    private long timeLimit;
     private long startedAt;
     private long finishedAt;
-    private ArrayList<Question> questions;
+    private HashMap<Integer, Boolean> hintedQuestions;
 
     public boolean isFinished() {
         return finishedAt > 0;
@@ -54,28 +48,6 @@ public class Test {
 
     public long getStartedAt() {
         return startedAt;
-    }
-
-    public long getTimeLimit() {
-        return timeLimit;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public ArrayList<Question> getQuestions() {
-        return questions;
-    }
-
-    public int getCorrectCount() {
-        int count = 0;
-        for (Question question: this.getQuestions()) {
-            if (this.isFinished() ? question.isCorrect() : question.hasAnswer()) {
-                count++;
-            }
-        }
-        return count;
     }
 
     public String md5(){
@@ -98,38 +70,39 @@ public class Test {
         return checksum;
     }
 
-    private Test() {
+    private Test() throws JSONException {
+        super();
+    }
 
+    public void setQuestionHinted(int questionNum) {
+        this.setQuestionHinted(questionNum, true);
+    }
+
+    public void setQuestionHinted(int questionNum, boolean hinted) {
+        this.hintedQuestions.put(questionNum, hinted);
+    }
+
+    public boolean isQuestionHinted(int questionNum) {
+        return this.hintedQuestions.containsKey(questionNum) && this.hintedQuestions.get(questionNum);
     }
 
     public void setFile(String fileName) throws JSONException, FileNotFoundException {
         this.file = new File(getDirectory() + File.separator + fileName);
-        this.questions = new ArrayList<Question>();
         this.startedAt = 0;
         this.finishedAt = 0;
-        this.timeLimit = 0;
-        this.description = "";
-        this.fill(this.file);
-    }
+        this.hintedQuestions = new HashMap<Integer, Boolean>();
 
-    public void fill(File file) throws JSONException, FileNotFoundException {
         String content = new Scanner(file).useDelimiter("\\A").next();
-        JSONObject test = new JSONObject(content);
-        JSONArray questions = test.getJSONArray(JSON_PROPERTY_QUESTIONS);
-        for (int i = 0; i < questions.length(); i++) {
-            this.questions.add(Question.of((JSONObject) questions.get(i)));
-        }
-        if (test.has(JSON_PROPERTY_TIMELIMIT)) {
-            this.timeLimit = test.getInt(JSON_PROPERTY_TIMELIMIT);
-        }
-        if (test.has(JSON_PROPERTY_DESCRIPTION)) {
-            this.description = test.getString(JSON_PROPERTY_DESCRIPTION);
-        }
+        fill(new JSONObject(content));
     }
 
     public static Test getInstance() {
         if (null == instance) {
-            instance = new Test();
+            try {
+                instance = new Test();
+            } catch (JSONException e) {
+                // nothing to catch
+            }
         }
         return instance;
     }
