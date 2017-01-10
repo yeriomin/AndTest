@@ -19,12 +19,14 @@
         android:layout_height="wrap_content" >
 
         <ImageButton
-            style="@style/AndTestImageButton"
+            android:layout_width="@dimen/button_size"
+            android:layout_height="@dimen/button_size"
             android:id="@+id/button_previous"
             android:src="@drawable/ic_previous" />
 
         <ImageButton
-            style="@style/AndTestImageButton"
+            android:layout_width="@dimen/button_size"
+            android:layout_height="@dimen/button_size"
             android:layout_toRightOf="@id/button_previous"
             android:id="@+id/button_result"
             android:src="@drawable/ic_list" />
@@ -50,13 +52,15 @@
         </LinearLayout>
 
         <ImageButton
-            style="@style/AndTestImageButton"
+            android:layout_width="@dimen/button_size"
+            android:layout_height="@dimen/button_size"
             android:id="@+id/button_hint"
             android:layout_toLeftOf="@+id/button_next"
             android:src="@drawable/ic_hint" />
 
         <ImageButton
-            style="@style/AndTestImageButton"
+            android:layout_width="@dimen/button_size"
+            android:layout_height="@dimen/button_size"
             android:id="@+id/button_next"
             android:layout_alignParentRight="true"
             android:src="@drawable/ic_next" />

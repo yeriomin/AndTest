@@ -48,7 +48,7 @@
         android:layout_height="wrap_content" >
 
         <Button
-            style="@style/AndTestButton"
+            android:layout_height="@dimen/button_size"
             android:layout_width="match_parent"
             android:textAppearance="@android:style/TextAppearance.Large"
             android:text="@string/button_start"

@@ -14,7 +14,6 @@ import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
-import java.util.HashMap;
 import java.util.Scanner;
 
 public class Test extends com.github.yeriomin.andtest.core.Test {
@@ -24,36 +23,65 @@ public class Test extends com.github.yeriomin.andtest.core.Test {
 
     private static Test instance;
 
-    private File file;
+    protected TestState state = new TestState();
 
-    private long startedAt;
-    private long finishedAt;
-    private HashMap<Integer, Boolean> hintedQuestions;
-
-    public boolean isFinished() {
-        return finishedAt > 0;
+    private Test() {
+        super();
     }
 
-    public void finish() {
-        this.finishedAt = Calendar.getInstance().getTimeInMillis();
+    private Test(JSONObject jsonObject) throws JSONException {
+        super(jsonObject);
     }
 
-    public long getFinishedAt() {
-        return finishedAt;
+    public TestState getState() {
+        return this.state;
     }
 
-    public void start() {
-        this.startedAt = Calendar.getInstance().getTimeInMillis();
+    public void setState(TestState state) {
+        this.state = state;
     }
 
-    public long getStartedAt() {
-        return startedAt;
+    public void setFile(String fileName) throws JSONException, FileNotFoundException {
+        File file = new File(getDirectory() + File.separator + fileName);
+        String content = new Scanner(file).useDelimiter("\\A").next();
+        Test test = new Test(new JSONObject(content));
+        test.state = new TestState();
+        test.state.setTestHash(md5(file));
+
+        Test.instance = test;
     }
 
-    public String md5(){
+    public long getTime() {
+        long now = Calendar.getInstance().getTimeInMillis();
+        return this.getTimeLimit() > 0
+            ? (this.getTimeLimit() + this.getState().getStartedAt() - now)
+            : (now - this.getState().getStartedAt());
+    }
+
+    static public Test getInstance() {
+        if (null == instance) {
+            instance = new Test();
+        }
+        return instance;
+    }
+
+    static public File getDirectory() {
+        return Environment.getExternalStoragePublicDirectory(DIRECTORY_TESTS);
+    }
+
+    static public FilenameFilter getFileFilter() {
+        return new FilenameFilter() {
+            @Override
+            public boolean accept(File dir, String filename) {
+                return filename.endsWith(EXT);
+            }
+        };
+    }
+
+    static private String md5(File file){
         String checksum = null;
         try {
-            FileInputStream fis = new FileInputStream(this.file);
+            FileInputStream fis = new FileInputStream(file);
             MessageDigest md = MessageDigest.getInstance("MD5");
             byte[] buffer = new byte[8192];
             int numOfBytesRead;
@@ -68,55 +96,5 @@ public class Test extends com.github.yeriomin.andtest.core.Test {
             System.out.println(e.getMessage());
         }
         return checksum;
-    }
-
-    private Test() throws JSONException {
-        super();
-    }
-
-    public void setQuestionHinted(int questionNum) {
-        this.setQuestionHinted(questionNum, true);
-    }
-
-    public void setQuestionHinted(int questionNum, boolean hinted) {
-        this.hintedQuestions.put(questionNum, hinted);
-    }
-
-    public boolean isQuestionHinted(int questionNum) {
-        return this.hintedQuestions.containsKey(questionNum) && this.hintedQuestions.get(questionNum);
-    }
-
-    public void setFile(String fileName) throws JSONException, FileNotFoundException {
-        this.file = new File(getDirectory() + File.separator + fileName);
-        this.startedAt = 0;
-        this.finishedAt = 0;
-        this.hintedQuestions = new HashMap<Integer, Boolean>();
-
-        String content = new Scanner(file).useDelimiter("\\A").next();
-        fill(new JSONObject(content));
-    }
-
-    public static Test getInstance() {
-        if (null == instance) {
-            try {
-                instance = new Test();
-            } catch (JSONException e) {
-                // nothing to catch
-            }
-        }
-        return instance;
-    }
-
-    public static File getDirectory() {
-        return Environment.getExternalStoragePublicDirectory(DIRECTORY_TESTS);
-    }
-
-    public static FilenameFilter getFileFilter() {
-        return new FilenameFilter() {
-            @Override
-            public boolean accept(File dir, String filename) {
-                return filename.endsWith(EXT);
-            }
-        };
     }
 }

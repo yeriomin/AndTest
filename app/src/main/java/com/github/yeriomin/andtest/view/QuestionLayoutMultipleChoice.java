@@ -5,10 +5,13 @@ import android.graphics.Color;
 import android.view.View;
 import android.widget.CheckBox;
 
+import com.github.yeriomin.andtest.core.Answer;
+import com.github.yeriomin.andtest.core.AnswerMultipleChoice;
 import com.github.yeriomin.andtest.core.Question;
 import com.github.yeriomin.andtest.core.QuestionMultipleChoice;
 
 import java.util.HashSet;
+import java.util.Set;
 
 public class QuestionLayoutMultipleChoice extends QuestionLayout {
 
@@ -16,23 +19,27 @@ public class QuestionLayoutMultipleChoice extends QuestionLayout {
         super(context);
     }
 
-    public void setQuestion(Question question, int num) {
-        super.setQuestion(question, num);
+    @Override
+    public void drawQuestion(Question question, Answer answer) {
+        super.drawQuestion(question, answer);
 
         int id = 0;
-        for (String answer: ((QuestionMultipleChoice) this.question).getChoices()) {
+        for (String choice: ((QuestionMultipleChoice) this.question).getChoices()) {
             CheckBox answerCheckBox = new CheckBox(getContext());
             answerCheckBox.setId(id);
-            answerCheckBox.setText(answer);
-            answerCheckBox.setOnClickListener(new CheckboxListener(question));
-            if (((QuestionMultipleChoice) question).getAnswer().contains(id)) {
-                answerCheckBox.setChecked(true);
+            answerCheckBox.setText(choice);
+            answerCheckBox.setOnClickListener(new CheckboxListener());
+            if (null != answer && !answer.isEmpty()) {
+                if (((AnswerMultipleChoice) answer).get().contains(id)) {
+                    answerCheckBox.setChecked(true);
+                }
             }
             this.addView(answerCheckBox);
             id++;
         }
     }
 
+    @Override
     public void drawAnswerAndExplanation() {
         super.drawAnswerAndExplanation();
 
@@ -48,15 +55,9 @@ public class QuestionLayoutMultipleChoice extends QuestionLayout {
 
     class CheckboxListener implements View.OnClickListener {
 
-        private Question question;
-
-        public CheckboxListener(Question question) {
-            this.question = question;
-        }
-
         @Override
         public void onClick(View v) {
-            HashSet<Integer> givenAnswer = ((QuestionMultipleChoice) question).getAnswer();
+            Set<Integer> givenAnswer = ((AnswerMultipleChoice) answer).get();
             CheckBox checkbox = (CheckBox) v;
             Integer id = checkbox.getId();
             if (checkbox.isChecked()) {
@@ -64,6 +65,7 @@ public class QuestionLayoutMultipleChoice extends QuestionLayout {
             } else {
                 givenAnswer.remove(id);
             }
+            answerOnChangeListener.onChange();
         }
     }
 }

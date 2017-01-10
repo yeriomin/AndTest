@@ -3,21 +3,25 @@
     <string name="menu_refresh">Refresh list</string>
     <string name="button_finish">Finish</string>
     <string name="button_start">Start</string>
+    <string name="result_not_finished_yet">, not finished yet</string>
     <string name="result_time_elapsed">Time elapsed: </string>
-    <string name="result_time_remaining">Time elapsed: </string>
+    <string name="result_time_remaining">Time remaining: </string>
     <string name="result_count_answered">Answers given:</string>
     <string name="result_count_correct">Correct: </string>
-    <string name="result_count_format" formatted="false">%s/%s (%s%%)</string>
-    <string name="text_progress" formatted="false">%s/%s</string>
-    <string name="text_time" formatted="false">%s:%s</string>
+    <string name="result_count_format" formatted="false">%d/%d (%s%%)</string>
+    <string name="text_progress" formatted="false">%d/%d</string>
+    <string name="text_time" formatted="false">%d:%s</string>
     <string name="test_list_empty">No tests found</string>
     <string name="test_history_empty">This test has not been taken yet</string>
     <string name="toast_invalid_test">Test file appears to be invalid</string>
-    <string name="question_table_number" formatted="false">#%s</string>
+    <string name="question_table_number" formatted="false">#%d</string>
     <string name="question_table_status_answered">answered</string>
     <string name="question_table_status_skipped">skipped</string>
     <string name="question_table_status_correct">correct</string>
     <string name="question_table_status_incorrect">incorrect</string>
-    <string name="summary_question_count" formatted="false">Number of questions: %s</string>
+    <string name="summary_question_count" formatted="false">Number of questions: %d</string>
     <string name="summary_time_limit" formatted="false">Time limit: %s</string>
+    <string name="unfinished_test_question">You have not finished your previous test. Discard it and start a new one?</string>
+    <string name="unfinished_test_yes">Start a new one</string>
+    <string name="unfinished_test_no">Continue last test</string>
 </resources>

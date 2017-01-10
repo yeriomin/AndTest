@@ -59,13 +59,14 @@
         android:layout_height="wrap_content" >
 
         <ImageButton
-            style="@style/AndTestImageButton"
+            android:layout_width="@dimen/button_size"
+            android:layout_height="@dimen/button_size"
             android:id="@+id/button_previous"
             android:src="@drawable/ic_previous"
             android:layout_alignParentLeft="true" />
 
         <Button
-            style="@style/AndTestButton"
+            android:layout_height="@dimen/button_size"
             android:layout_width="wrap_content"
             android:textAppearance="@android:style/TextAppearance.Large"
             android:text="@string/button_finish"
@@ -75,7 +76,8 @@
             android:layout_centerHorizontal="true" />
 
         <ImageButton
-            style="@style/AndTestImageButton"
+            android:layout_width="@dimen/button_size"
+            android:layout_height="@dimen/button_size"
             android:id="@+id/button_next"
             android:src="@drawable/ic_next"
             android:layout_alignParentRight="true" />

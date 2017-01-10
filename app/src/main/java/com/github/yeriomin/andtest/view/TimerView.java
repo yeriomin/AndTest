@@ -10,14 +10,24 @@ import android.widget.TextView;
 
 import com.github.yeriomin.andtest.DbHelper;
 import com.github.yeriomin.andtest.R;
-import com.github.yeriomin.andtest.activity.TestResultActivity;
+import com.github.yeriomin.andtest.activity.QuestionListActivity;
 import com.github.yeriomin.andtest.model.Test;
 
-import java.util.Calendar;
 import java.util.Timer;
 import java.util.TimerTask;
 
 public class TimerView extends TextView {
+
+    private Timer timer;
+    private Test test;
+
+    public void pause() {
+        this.timer.cancel();
+    }
+
+    public void setTest(Test test) {
+        this.test = test;
+    }
 
     public void setTime(long millis) {
         int secondsOverall = (int) (millis/1000);
@@ -29,7 +39,7 @@ public class TimerView extends TextView {
     }
 
     public TimerView(Context context) {
-        this(context, (AttributeSet) null);
+        this(context, null);
     }
 
     public TimerView(Context context, AttributeSet attrs) {
@@ -40,9 +50,9 @@ public class TimerView extends TextView {
         super(context, attrs, defStyle);
     }
 
-    public void launch(Test test) {
-        final Timer timer = new Timer();
-        final Handler handler = new ClockHandler(timer, test, this);
+    public void launch() {
+        this.timer = new Timer();
+        final Handler handler = new ClockHandler(this);
         TimerTask task = new TimerTask() {
             public void run() {
                 Message msg = new Message();
@@ -54,37 +64,30 @@ public class TimerView extends TextView {
         int period = 500;
         timer.scheduleAtFixedRate(task, 0, period);
     }
-}
 
-class ClockHandler extends Handler {
+    class ClockHandler extends Handler {
 
-    private Timer timer;
-    private Test test;
-    private TimerView view;
+        private TimerView view;
 
-    public ClockHandler(Timer timer, Test test, TimerView view) {
-        this.timer = timer;
-        this.test = test;
-        this.view = view;
-    }
-
-    @Override
-    public void handleMessage(Message msg) {
-        long now = Calendar.getInstance().getTimeInMillis();
-        long time =  this.test.getTimeLimit() > 0
-                ? (this.test.getTimeLimit() + this.test.getStartedAt() - now)
-                : (now - this.test.getStartedAt());
-        if (time < 0) {
-            this.test.finish();
-            DbHelper.getDbHelper(this.view.getContext()).save(this.test);
-            DbHelper.closeDbHelper();
-            this.timer.cancel();
-            this.view.getContext().startActivity(new Intent(this.view.getContext(), TestResultActivity.class));
-        } else if (this.test.isFinished()) {
-            this.timer.cancel();
+        public ClockHandler(TimerView view) {
+            this.view = view;
         }
 
-        this.view.setTime(time);
+        @Override
+        public void handleMessage(Message msg) {
+            long time = test.getTime();
+            if (time < 0) {
+                test.getState().finish();
+                DbHelper.getDbHelper(this.view.getContext()).save(test.getState());
+                DbHelper.closeDbHelper();
+                timer.cancel();
+                this.view.getContext().startActivity(new Intent(this.view.getContext(), QuestionListActivity.class));
+            } else if (test.getState().isFinished()) {
+                timer.cancel();
+            }
+
+            this.view.setTime(time);
+        }
     }
 }
 
