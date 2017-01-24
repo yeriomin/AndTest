@@ -5,16 +5,17 @@ import android.os.Environment;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FilenameFilter;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.math.BigInteger;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Calendar;
-import java.util.Scanner;
 
 public class Test extends com.github.yeriomin.andtest.core.Test {
 
@@ -43,8 +44,7 @@ public class Test extends com.github.yeriomin.andtest.core.Test {
 
     public void setFile(String fileName) throws JSONException, FileNotFoundException {
         File file = new File(getDirectory() + File.separator + fileName);
-        String content = new Scanner(file).useDelimiter("\\A").next();
-        Test test = new Test(new JSONObject(content));
+        Test test = new Test(new JSONObject(getString(file)));
         test.state = new TestState();
         test.state.setTestHash(md5(file));
 
@@ -96,5 +96,22 @@ public class Test extends com.github.yeriomin.andtest.core.Test {
             System.out.println(e.getMessage());
         }
         return checksum;
+    }
+
+    static private String getString(File file) {
+        StringBuilder content = new StringBuilder();
+        try {
+            InputStreamReader inputStreamReader = new InputStreamReader(new FileInputStream(file));
+            BufferedReader bufferedReader = new BufferedReader(inputStreamReader);
+            String readString = bufferedReader.readLine();
+            while (readString != null) {
+                content.append(readString);
+                readString = bufferedReader.readLine();
+            }
+            inputStreamReader.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        return content.toString();
     }
 }
